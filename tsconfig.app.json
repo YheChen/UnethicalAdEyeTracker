@@ -13,6 +13,10 @@
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
+    /* Keep the browser app free of ambient Node globals (which would clash with
+       DOM types, e.g. setInterval's return type). Node types are scoped to
+       tsconfig.node.json. vite/client is pulled in via src/vite-env.d.ts. */
+    "types": [],
 
     /* Strictness */
     "strict": true,

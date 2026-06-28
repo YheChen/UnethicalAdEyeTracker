@@ -2,7 +2,7 @@
  * Self-contained mock ad creatives for the demo player.
  *
  * The ads are deliberately asset-free: each one is rendered live by
- * {@link "../components/AdPlayer".AdPlayer} from these fields (animated gradient
+ * the player component ({@link ../components/PlayerStage}) from these fields (animated gradient
  * background, floating product glyph, brand/product/tagline/price), so the demo
  * needs no external video files and works fully offline.
  */
