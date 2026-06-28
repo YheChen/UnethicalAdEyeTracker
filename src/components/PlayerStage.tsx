@@ -12,11 +12,11 @@
  */
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useAdClock } from "../hooks/useAdClock";
+import { useAdClock } from "../hooks/usePlaybackClock";
 import PauseOverlay from "./PauseOverlay";
 import StatusBadge from "./StatusBadge";
 import type { StatusKind } from "./StatusBadge";
-import type { AdCreative } from "../data/ads";
+import type { AdCreative } from "../data/creatives";
 
 export interface AdPlayerProps {
   ad: AdCreative;
