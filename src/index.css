@@ -1,0 +1,124 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------ */
+/* Base                                                                */
+/* ------------------------------------------------------------------ */
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-[#070b14] text-slate-100 antialiased;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(60rem 60rem at 12% -10%, rgba(37, 99, 235, 0.18), transparent 60%),
+      radial-gradient(50rem 50rem at 100% 0%, rgba(99, 102, 241, 0.14), transparent 55%),
+      radial-gradient(40rem 40rem at 50% 120%, rgba(56, 189, 248, 0.1), transparent 60%);
+    background-attachment: fixed;
+  }
+
+  ::selection {
+    @apply bg-brand-500/40 text-white;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Components                                                          */
+/*                                                                     */
+/* Buttons use TWO classes together, e.g. className="btn btn-primary". */
+/* ------------------------------------------------------------------ */
+@layer components {
+  .glass-panel {
+    @apply border border-white/10 bg-white/[0.05] shadow-glass backdrop-blur-2xl;
+  }
+
+  .glass-soft {
+    @apply border border-white/[0.07] bg-white/[0.03] backdrop-blur-xl;
+  }
+
+  .btn {
+    @apply inline-flex select-none items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold outline-none transition-all duration-200;
+    @apply focus-visible:ring-2 focus-visible:ring-brand-400/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#070b14];
+    @apply disabled:cursor-not-allowed disabled:opacity-40;
+  }
+
+  .btn-primary {
+    @apply bg-gradient-to-br from-brand-400 to-brand-600 text-white shadow-glow-brand hover:from-brand-300 hover:to-brand-500 active:scale-[0.98];
+  }
+
+  .btn-secondary {
+    @apply bg-white/10 text-slate-100 hover:bg-white/20 active:scale-[0.98];
+  }
+
+  .btn-ghost {
+    @apply bg-transparent text-slate-300 hover:bg-white/10 hover:text-white;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-white via-brand-100 to-brand-300 bg-clip-text text-transparent;
+  }
+
+  /*
+   * The single shared webcam <video> element lives off-screen. MediaPipe reads
+   * its intrinsic frames; visible previews draw it onto their own <canvas>.
+   * It stays in the DOM (not display:none) so the browser keeps decoding it.
+   */
+  .tracking-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 2px;
+    opacity: 0;
+    pointer-events: none;
+    z-index: -50;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Utilities                                                           */
+/* ------------------------------------------------------------------ */
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(148, 163, 184, 0.3) transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-white/10;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    @apply bg-white/20;
+  }
+
+  /* Toggle on any element to freeze its CSS animations (used while paused). */
+  .animation-paused {
+    animation-play-state: paused !important;
+  }
+
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgba(148, 163, 184, 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(148, 163, 184, 0.06) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+}
