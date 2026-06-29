@@ -37,7 +37,7 @@ export const GAZE_SMOOTHING_WINDOW = 5;
  * higher value pauses the ad more readily (the gaze must stay closer to centre).
  * Currently set to 0.75 for testing — raise/lower to tune sensitivity.
  */
-export const MIN_CONFIDENCE = 0.75;
+export const MIN_CONFIDENCE = 0.85;
 
 // These four thresholds define the size of the "looking at the ad" cone around
 // the calibrated centre. SMALLER = tighter perimeter = pauses more readily when
