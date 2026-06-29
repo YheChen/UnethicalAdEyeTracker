@@ -33,21 +33,27 @@ export const GAZE_SMOOTHING_WINDOW = 5;
 
 /**
  * Minimum confidence (0..1) required to treat the user as looking at the ad.
- * Confidence falls off as the gaze drifts away from the calibrated centre.
+ * Confidence falls off as the gaze drifts away from the calibrated centre, so a
+ * higher value pauses the ad more readily (the gaze must stay closer to centre).
+ * Currently set to 0.75 for testing — raise/lower to tune sensitivity.
  */
-export const MIN_CONFIDENCE = 0.65;
+export const MIN_CONFIDENCE = 0.75;
+
+// These four thresholds define the size of the "looking at the ad" cone around
+// the calibrated centre. SMALLER = tighter perimeter = pauses more readily when
+// the gaze drifts toward the screen edges/corners. Tightened for testing.
 
 /** Maximum horizontal iris drift (normalized) from baseline before off-target. */
-export const GAZE_RATIO_THRESHOLD_X = 0.17;
+export const GAZE_RATIO_THRESHOLD_X = 0.1;
 
 /** Maximum vertical iris drift (normalized) from baseline before off-target. */
-export const GAZE_RATIO_THRESHOLD_Y = 0.22;
+export const GAZE_RATIO_THRESHOLD_Y = 0.11;
 
 /** Maximum head yaw deviation (degrees) from baseline before off-target. */
-export const HEAD_YAW_THRESHOLD_DEG = 24;
+export const HEAD_YAW_THRESHOLD_DEG = 14;
 
 /** Maximum head pitch deviation (degrees) from baseline before off-target. */
-export const HEAD_PITCH_THRESHOLD_DEG = 18;
+export const HEAD_PITCH_THRESHOLD_DEG = 10;
 
 // ---------------------------------------------------------------------------
 // Eye openness
