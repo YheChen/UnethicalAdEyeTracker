@@ -2,7 +2,7 @@
  * AdPlayer — the centerpiece YouTube-style advertisement player.
  *
  * It is self-contained: it owns its playback clock, ambient audio + mute state,
- * fullscreen toggle, skip countdown and replay. The clock only advances while
+ * fullscreen toggle and replay. The clock only advances while
  * `playing` is true, so ad progress strictly follows the viewer's attention.
  *
  * Layout: a 16:9 relative stage renders the animated creative scene + YouTube
@@ -32,8 +32,6 @@ export interface AdPlayerProps {
   onAdEnded: () => void;
 }
 
-/** Seconds of elapsed playback before the "Skip Ad" button unlocks. */
-const SKIP_UNLOCK_SEC = 5;
 /** Quietest-possible ambient tone gain; well below anything intrusive. */
 const AMBIENT_GAIN = 0.04;
 
@@ -115,14 +113,6 @@ function SettingsIcon() {
   );
 }
 
-function SkipIcon() {
-  return (
-    <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden="true">
-      <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" />
-    </svg>
-  );
-}
-
 function LikeIcon() {
   return (
     <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden="true">
@@ -171,8 +161,6 @@ export function AdPlayer(props: AdPlayerProps): JSX.Element {
   const gainRef = useRef<GainNode | null>(null);
 
   const remainingSeconds = Math.max(0, Math.ceil(ad.durationSec - clock.currentTime));
-  const skipUnlocked = clock.currentTime >= SKIP_UNLOCK_SEC;
-  const skipCountdown = Math.max(1, Math.ceil(SKIP_UNLOCK_SEC - clock.currentTime));
 
   // Inline gradient for the animated background; `background-size:200%` lets the
   // `animate-gradient-pan` keyframes pan the gradient for a living-commercial feel.
@@ -340,28 +328,6 @@ export function AdPlayer(props: AdPlayerProps): JSX.Element {
         {/* Top-right: live status badge */}
         <div className="absolute right-3 top-3">
           <StatusBadge status={status} />
-        </div>
-
-        {/* Skip Ad affordance, above the bottom chrome */}
-        <div className="absolute bottom-16 right-3 z-20">
-          {skipUnlocked ? (
-            <button
-              type="button"
-              onClick={onSkip}
-              className="inline-flex items-center gap-2 rounded-md border border-white/30 bg-black/55 px-3 py-2 text-sm font-semibold text-white backdrop-blur transition-colors hover:bg-black/75"
-              aria-label="Skip advertisement"
-            >
-              Skip Ad
-              <SkipIcon />
-            </button>
-          ) : (
-            <span
-              className="inline-flex cursor-not-allowed items-center rounded-md border border-white/15 bg-black/40 px-3 py-2 text-sm font-medium text-white/70 backdrop-blur"
-              aria-label={`Skip available in ${skipCountdown} seconds`}
-            >
-              Skip Ad in {skipCountdown}
-            </span>
-          )}
         </div>
 
         {/* Bottom chrome: control row + YouTube-style progress bar */}
